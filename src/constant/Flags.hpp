@@ -17,4 +17,7 @@ namespace sufy { namespace constant {
     static const sf::Vector2f DIMENSIONS = sf::Vector2f(WIDTH, HEIGHT);
     static const sf::Vector2f ORIGIN = sf::Vector2f(0.0f, 0.0f);
     static const sf::Vector2f CENTER = sf::Vector2f((float) WIDTH/2, (float) HEIGHT/2);
+    static const float DEBUG_THICKNESS = 1.0f;
+    static const sf::Color DEBUG_OUTLINE = sf::Color::Red;
+    static const sf::Color DEBUG_FILL = sf::Color::Transparent;
 }}

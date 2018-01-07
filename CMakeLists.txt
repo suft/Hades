@@ -36,6 +36,10 @@ file(GLOB UTILS_CPP src/utils/*.cpp)
 # WINDOW NAMESPACE
 file(GLOB WINDOW_HPP src/window/*.hpp)
 file(GLOB WINDOW_CPP src/window/*.cpp)
+
+# WINDOW GUI NAMESPACE
+file(GLOB WINDOW_GUI_HPP src/window/gui/*.hpp)
+file(GLOB WINDOW_GUI_CPP src/window/gui/*.cpp)
 #################################################
 
 #################################################
@@ -55,7 +59,23 @@ set(SOURCE_FILES src/Main.cpp
         ${UTILS_HPP} ${UTILS_CPP}
         ${GAME_HPP} ${GAME_CPP}
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
-        ${WINDOW_HPP} ${WINDOW_CPP})
+        ${WINDOW_HPP} ${WINDOW_CPP}
+        ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP})
+
+
+####
+#### RESOURCE FILES
+####
+
+#################################################
+## FONTS
+set(FONTS Polya.otf)
+#################################################
+
+foreach(RESOURCE ${FONTS})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach(RESOURCE)
 
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})

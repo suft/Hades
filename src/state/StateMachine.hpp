@@ -7,6 +7,9 @@
 namespace sufy { namespace state {
 
     template <typename Adapter>
+    class State;
+
+    template <typename Adapter>
     class StateMachine {
     private:
         std::stack<std::unique_ptr<State<Adapter>>> states;
