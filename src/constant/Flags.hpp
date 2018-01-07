@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <SFML/System.hpp>
 
 #if defined(BUILD_Debug)
@@ -9,6 +10,8 @@
 #endif
 
 namespace sufy { namespace constant {
+    static const std::string NAME = "Sufy";
+    static const std::string DEBUGGING_NAME = "Sufy Debugging";
     static const int WIDTH = 1920;
     static const int HEIGHT = 1080;
     static const sf::Vector2f DIMENSIONS = sf::Vector2f(WIDTH, HEIGHT);

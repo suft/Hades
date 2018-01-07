@@ -1,6 +1,8 @@
 #include <iostream>
+#include "game/Application.hpp"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    sufy::game::Application app;
+    app.run();
+    return EXIT_SUCCESS;
 }

@@ -15,21 +15,40 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CXX_LINKER_FLAGS}")
 #### SOURCE FILES
 ####
 
+#################################################
 # CONST NAMESPACE
 file(GLOB CONST_HPP src/constant/*.hpp)
+#################################################
 
+#################################################
 # STATE NAMESPACE
 file(GLOB STATE_HPP src/state/*.hpp)
 file(GLOB STATE_CPP src/state/*.cpp)
+#################################################
 
+#################################################
 # UTILS NAMESPACE
 file(GLOB UTILS_HPP src/utils/*.hpp)
 file(GLOB UTILS_CPP src/utils/*.cpp)
+#################################################
+
+#################################################
+# GAME NAMESPACE
+file(GLOB GAME_HPP src/game/*.hpp)
+file(GLOB GAME_CPP src/game/*.cpp)
+
+## GAME STATES NAMESPACE
+file(GLOB GAME_STATES_HPP src/game/states/*.hpp)
+file(GLOB GAME_STATES_CPP src/game/states/*.cpp)
+
+#################################################
 
 set(SOURCE_FILES src/Main.cpp
         ${CONST_HPP}
-        ${STATE_HPP} ${STATE_CPP}
-        ${UTILS_HPP} ${UTILS_CPP})
+        ${STATE_HPP}
+        ${UTILS_HPP} ${UTILS_CPP}
+        ${GAME_HPP} ${GAME_CPP}
+        ${GAME_STATES_HPP} ${GAME_STATES_CPP})
 
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})
