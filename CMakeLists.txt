@@ -33,6 +33,12 @@ file(GLOB UTILS_CPP src/utils/*.cpp)
 #################################################
 
 #################################################
+# WINDOW NAMESPACE
+file(GLOB WINDOW_HPP src/window/*.hpp)
+file(GLOB WINDOW_CPP src/window/*.cpp)
+#################################################
+
+#################################################
 # GAME NAMESPACE
 file(GLOB GAME_HPP src/game/*.hpp)
 file(GLOB GAME_CPP src/game/*.cpp)
@@ -48,7 +54,8 @@ set(SOURCE_FILES src/Main.cpp
         ${STATE_HPP}
         ${UTILS_HPP} ${UTILS_CPP}
         ${GAME_HPP} ${GAME_CPP}
-        ${GAME_STATES_HPP} ${GAME_STATES_CPP})
+        ${GAME_STATES_HPP} ${GAME_STATES_CPP}
+        ${WINDOW_HPP} ${WINDOW_CPP})
 
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})

@@ -16,4 +16,5 @@ namespace sufy { namespace constant {
     static const int HEIGHT = 1080;
     static const sf::Vector2f DIMENSIONS = sf::Vector2f(WIDTH, HEIGHT);
     static const sf::Vector2f ORIGIN = sf::Vector2f(0.0f, 0.0f);
+    static const sf::Vector2f CENTER = sf::Vector2f((float) WIDTH/2, (float) HEIGHT/2);
 }}
