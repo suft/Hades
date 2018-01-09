@@ -43,6 +43,11 @@ file(GLOB WINDOW_GUI_CPP src/window/gui/*.cpp)
 #################################################
 
 #################################################
+# GRAPHICS NAMESPACE
+file(GLOB GRAPHICS_HPP src/graphics/*.hpp)
+#################################################
+
+#################################################
 # GAME NAMESPACE
 file(GLOB GAME_HPP src/game/*.hpp)
 file(GLOB GAME_CPP src/game/*.cpp)
@@ -56,6 +61,7 @@ file(GLOB GAME_STATES_CPP src/game/states/*.cpp)
 set(SOURCE_FILES src/Main.cpp
         ${CONST_HPP}
         ${STATE_HPP}
+        ${GRAPHICS_HPP}
         ${UTILS_HPP} ${UTILS_CPP}
         ${GAME_HPP} ${GAME_CPP}
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
