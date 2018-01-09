@@ -2,26 +2,16 @@
 
 namespace sufy { namespace utils {
 
-    template <typename T>
-    std::unordered_map<std::string, std::shared_ptr<T>> Codex<T>::content;
+    std::unordered_map<std::string, std::shared_ptr<sf::Font>> Codex::fonts;
 
-    template<typename T>
-    std::shared_ptr<T> Codex<T>::Acquire(const std::string &name) {
-        const auto i = content.find(name);
-        if (i != content.end()) return i->second;
+    std::shared_ptr<sf::Font> Codex::AcquireFont(const std::string& name) {
+        const auto i = fonts.find(name);
+        if (i != fonts.end()) return i->second;
         else {
-            auto cont = std::make_shared<T>();
-            cont->loadFromFile(name);
-            content.insert({name, cont});
-            return cont;
-        }
-    }
-
-    template<typename T>
-    void Codex<T>::Clean() {
-        for (auto i = content.begin(); i != content.end();) {
-            if (i->second.unique()) i = content.erase(i);
-            else ++i;
+            auto font = std::make_shared<sf::Font>();
+            font->loadFromFile(name);
+            fonts.insert({name, font});
+            return font;
         }
     }
 }}
