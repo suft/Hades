@@ -48,6 +48,12 @@ file(GLOB GRAPHICS_HPP src/graphics/*.hpp)
 #################################################
 
 #################################################
+# PENNER NAMESPACE
+file(GLOB PENNER_HPP src/penner/*.hpp)
+file(GLOB PENNER_CPP src/penner/*.cpp)
+#################################################
+
+#################################################
 # GAME NAMESPACE
 file(GLOB GAME_HPP src/game/*.hpp)
 file(GLOB GAME_CPP src/game/*.cpp)
@@ -66,7 +72,8 @@ set(SOURCE_FILES src/Main.cpp
         ${GAME_HPP} ${GAME_CPP}
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
         ${WINDOW_HPP} ${WINDOW_CPP}
-        ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP})
+        ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP}
+        ${PENNER_HPP} ${PENNER_CPP})
 
 
 ####

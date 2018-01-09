@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 #include <SFML/System.hpp>
 
 #if defined(BUILD_Debug)
@@ -10,16 +11,27 @@
 #endif
 
 namespace sufy { namespace constant {
+
+    typedef std::function<void(float)> Update;
+    typedef std::function<void(sf::RenderTarget&)> Render;
+    typedef std::function<void()> Callback;
+
     static const std::string NAME = "Sufy";
     static const std::string DEBUGGING_NAME = "Sufy Debugging";
+
     static const int WIDTH = 1920;
     static const int HEIGHT = 1080;
     static const sf::Vector2f DIMENSIONS = sf::Vector2f(WIDTH, HEIGHT);
     static const sf::Vector2f ORIGIN = sf::Vector2f(0.0f, 0.0f);
     static const sf::Vector2f CENTER = sf::Vector2f((float) WIDTH/2, (float) HEIGHT/2);
+
     static const float DEBUG_THICKNESS = 1.0f;
     static const sf::Color DEBUG_OUTLINE = sf::Color::White;
     static const sf::Color DEBUG_FILL = sf::Color::Transparent;
+
+    static const float TRANSPARENT_ALPHA = 0.0f;
+    static const float OPAQUE_ALPHA = 255.0f;
+    static const float ALPHA_RANGE = 255.0f;
 
     static const sf::Color LIGHTGRAY = sf::Color(211, 211, 211);
     static const sf::Color SLATEGREY = sf::Color(112, 128, 144);
