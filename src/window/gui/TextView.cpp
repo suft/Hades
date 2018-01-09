@@ -10,9 +10,7 @@ namespace sufy { namespace window { namespace gui {
         );
     }
 
-    void TextView::update(float dt) {
-
-    }
+    void TextView::update(float dt) {}
 
     void TextView::render(sf::RenderTarget &rt) {
         View::render(rt);
