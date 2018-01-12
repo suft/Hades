@@ -17,12 +17,12 @@ namespace sufy { namespace window { namespace gui {
             (*this->selector)->select(false);
             (*this->selector)->click(false);
             this->selector--;
-            if (this->selector == this->buttons.begin() - 1) this->selector = this->buttons.begin();
+            if (this->selector == this->buttons.begin() - 1) this->selector = this->buttons.end() - 1;
         } else if (this->down(event)) {
             (*this->selector)->select(false);
             (*this->selector)->click(false);
             this->selector++;
-            if (this->selector == this->buttons.end()) this->selector = this->buttons.end() - 1;
+            if (this->selector == this->buttons.end()) this->selector = this->buttons.begin();
         } else if (this->click(event)) {
             (*this->selector)->click(true);
         }
