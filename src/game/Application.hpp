@@ -4,6 +4,7 @@
 #include "../constant/Flags.hpp"
 #include "../state/State.hpp"
 #include "../state/StateMachine.hpp"
+#include "states/SplashState.hpp"
 #include "states/IdleState.hpp"
 
 namespace sufy { namespace game {

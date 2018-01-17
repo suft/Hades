@@ -3,6 +3,7 @@
 #include <string>
 #include <functional>
 #include <SFML/System.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #if defined(BUILD_Debug)
 #define DEBUGGING          true

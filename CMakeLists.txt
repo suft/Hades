@@ -82,10 +82,20 @@ set(SOURCE_FILES src/Main.cpp
 
 #################################################
 ## FONTS
-set(FONTS Polya.otf)
+set(FONTS Polya.otf Sakred.ttf Gelio.ttf)
 #################################################
 
 foreach(RESOURCE ${FONTS})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach(RESOURCE)
+
+#################################################
+## IMAGES
+set(IMAGES Logo.png)
+#################################################
+
+foreach(RESOURCE ${IMAGES})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
             ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
 endforeach(RESOURCE)
