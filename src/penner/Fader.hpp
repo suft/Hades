@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/RectangleShape.hpp>
 #include "../constant/Flags.hpp"
 #include "../utils/Misc.hpp"
 

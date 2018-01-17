@@ -1,10 +1,16 @@
-#include "IdleState.hpp"
+#include "MenuState.hpp"
 
 namespace sufy { namespace game { namespace states {
 
-    IdleState::IdleState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace): State<sf::RenderWindow>(machine, adapter, replace) {
+    MenuState::MenuState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace) : State(machine, adapter, replace) {
         this->background = sf::Color::Black;
         std::string names[] = {"Play", "Options", "Help", "Quit"};
+        sufy::constant::Callback callbacks[] = {
+            std::bind(&MenuState::play, this),
+            std::bind(&MenuState::options, this),
+            std::bind(&MenuState::help, this),
+            std::bind(&MenuState::quit, this)
+        };
         sufy::graphics::ActionColours colours = {
             {
                 sf::Color::White,
@@ -21,12 +27,12 @@ namespace sufy { namespace game { namespace states {
         };
 
         sf::Text text = sufy::utils::Text(
-                "Hades",
-                *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
-                300.0f,
-                3.5,
-                sf::Color(223, 151, 83),
-                sf::Color(223, 151, 83)
+            "Hades",
+            *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
+            300.0f,
+            3.5,
+            sf::Color(223, 151, 83),
+            sf::Color(223, 151, 83)
         );
 
         this->menu.add(std::shared_ptr<sufy::window::gui::TextView>(new sufy::window::gui::TextView(
@@ -36,40 +42,52 @@ namespace sufy { namespace game { namespace states {
 
         for (int i = 0; i < sizeof(names)/sizeof(names[0]); ++i) {
             sf::Text temp = sufy::utils::Text(
-                    names[i],
-                    *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
-                    120.0f,
-                    1.5f,
-                    sf::Color(),
-                    sf::Color()
+                names[i],
+                *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
+                120.0f,
+                1.5f,
+                sf::Color(),
+                sf::Color()
             );
             this->menu.add(std::shared_ptr<sufy::window::gui::Button>(new sufy::window::gui::Button(
-                    550 + (i * 130),
-                    temp,
-                    colours,
-                    [](){}
+                550 + (i * 130),
+                temp,
+                colours,
+                callbacks[i]
             )));
         }
 
         this->menu.finalize();
     }
 
-    void IdleState::pause() {}
-    void IdleState::resume() {}
+    void MenuState::play() {
+        this->after = std::unique_ptr<SplashState>(new SplashState(this->machine, this->adapter, true));
+    }
 
-    void IdleState::update(float dt) {
+    void MenuState::options() {}
+
+    void MenuState::help() {}
+
+    void MenuState::quit() {
+        this->machine.quit();
+    }
+
+    void MenuState::pause() {}
+    void MenuState::resume() {}
+
+    void MenuState::update(float dt) {
         sf::Event event;
         while (this->adapter.pollEvent(event)) this->handleEvents(event);
         this->menu.update(dt);
     }
 
-    void IdleState::render() {
+    void MenuState::render() {
         this->adapter.clear(this->background);
         this->menu.render(this->adapter);
         this->adapter.display();
     }
 
-    void IdleState::handleEvents(const sf::Event &event) {
+    void MenuState::handleEvents(const sf::Event &event) {
         switch (event.type) {
             case sf::Event::Closed:
                 this->machine.quit();
@@ -83,4 +101,5 @@ namespace sufy { namespace game { namespace states {
                 break;
         }
     }
+
 }}}
