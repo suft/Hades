@@ -1,36 +1,35 @@
 #pragma once
 
-#include <memory>
+#include <string>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Window/Event.hpp>
 #include "../../constant/Flags.hpp"
 #include "../../state/State.hpp"
 #include "../../state/StateMachine.hpp"
+#include "../../window/gui/Menu.hpp"
+#include "../../utils/Misc.hpp"
 #include "../../utils/Codex.hpp"
-#include "../../penner/Fader.hpp"
 #include "MenuState.hpp"
 
 namespace sufy { namespace game { namespace states {
 
-    class SplashState : public sufy::state::State<sf::RenderWindow> {
+    class PauseState : public sufy::state::State<sf::RenderWindow> {
     private:
-        float duration;
         sf::Color background;
-        sf::Sprite logo;
-        sufy::penner::Fader fader;
+        sufy::window::gui::Menu menu;
     public:
-        SplashState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode);
+        PauseState(state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode);
 
         void pause() override;
         void resume() override;
 
         void update(float dt) override;
         void render() override;
+
+        void resumeIntent();
+        void optionsIntent();
+        void helpIntent();
+        void menuIntent();
     private:
         void handleEvents(const sf::Event& event);
-
-        void swapFader();
-        void renderLogo(sf::RenderTarget& rt);
     };
 }}}

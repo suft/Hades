@@ -6,15 +6,18 @@ namespace sufy { namespace state {
     template <typename Adapter>
     class StateMachine;
 
+    enum class StateMode {ADD, REPLACE_TOP, REPLACE_ALL};
+
     template <typename Adapter>
     class State {
+    public:
     protected:
         std::unique_ptr<State<Adapter>> after;
         StateMachine<Adapter>& machine;
         Adapter& adapter;
-        bool replace;
+        StateMode mode;
     public:
-        State(StateMachine<Adapter>& machine, Adapter& adapter, bool replace): machine(machine), adapter(adapter), replace(replace) {}
+        State(StateMachine<Adapter>& machine, Adapter& adapter, StateMode mode): machine(machine), adapter(adapter), mode(mode) {}
         virtual ~State() = default;
 
         State(const State<Adapter>&) = delete;
@@ -24,8 +27,8 @@ namespace sufy { namespace state {
             return std::move(this->after);
         }
 
-        bool isReplacing() const {
-            return this->replace;
+        StateMode getMode() const {
+            return this->mode;
         }
 
         virtual void pause() = 0;
