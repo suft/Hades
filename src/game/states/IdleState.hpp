@@ -18,7 +18,7 @@ namespace sufy { namespace game { namespace states {
         sf::Color background;
         sufy::window::gui::Menu menu;
     public:
-        IdleState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace);
+        IdleState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode);
 
         void pause() override;
         void resume() override;

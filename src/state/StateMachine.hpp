@@ -49,7 +49,8 @@ namespace sufy { namespace state {
             if (!this->states.empty()) {
                 std::unique_ptr<State<Adapter>> state = this->states.top()->next();
                 if (state) {
-                    if (state->isReplacing()) this->states.pop();
+                    if (state->getMode() == StateMode::REPLACE_TOP) this->states.pop();
+                    else if (state->getMode() == StateMode::REPLACE_ALL) this->states = std::stack<std::unique_ptr<State<Adapter>>>();
                     else this->states.top()->pause();
                     this->states.push(std::move(state));
                 }
