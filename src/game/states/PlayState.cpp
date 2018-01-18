@@ -11,8 +11,8 @@ namespace sufy { namespace game { namespace states {
 
     }
 
-    void PlayState::render(sf::RenderTarget& rt) {
-        this->adapter.clear(this->background);
+    void PlayState::render() {
+        this->adapter.clear();
         this->adapter.display();
     }
 

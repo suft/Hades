@@ -5,7 +5,8 @@ namespace sufy { namespace game {
     void Application::run() {
         this->window.create(
                 sf::VideoMode(sufy::constant::WIDTH, sufy::constant::HEIGHT),
-                (DEBUGGING)? sufy::constant::DEBUGGING_NAME : sufy::constant::NAME
+                (DEBUGGING)? sufy::constant::DEBUGGING_NAME : sufy::constant::NAME,
+                sf::Style::Fullscreen
         );
         this->window.setVerticalSyncEnabled(true);
         this->window.setFramerateLimit(60);

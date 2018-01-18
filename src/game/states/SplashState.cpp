@@ -5,9 +5,13 @@ namespace sufy { namespace game { namespace states {
     SplashState::SplashState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace): State<sf::RenderWindow>(machine, adapter, replace) {
         this->logo = sf::Sprite(*sufy::utils::Codex::AcquireTexture("Logo.png"));
         auto local = this->logo.getLocalBounds();
-        this->logo.setScale({960 / local.width, 438 / local.height});
+        auto scale = 0.45f;
+        this->logo.setScale(scale, scale);
         auto global = this->logo.getGlobalBounds();
-        this->logo.setPosition({global.width/2, global.height/2 + 100});
+        this->logo.setPosition({
+           (sufy::constant::WIDTH - global.width) / 2.0f,
+           (sufy::constant::HEIGHT - global.height) / 2.0f
+       });
         this->background = sf::Color::Black;
         this->fader = sufy::penner::Fader(
                 sufy::penner::Fader::Direction::IN,

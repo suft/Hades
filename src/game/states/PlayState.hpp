@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "../../state/State.hpp"
 
 namespace sufy { namespace game { namespace states {
 

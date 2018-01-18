@@ -29,14 +29,14 @@ namespace sufy { namespace game { namespace states {
         sf::Text text = sufy::utils::Text(
             "Hades",
             *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
-            300.0f,
+            sufy::constant::HEIGHT / 3,
             3.5,
             sf::Color(223, 151, 83),
             sf::Color(223, 151, 83)
         );
 
         this->menu.add(std::shared_ptr<sufy::window::gui::TextView>(new sufy::window::gui::TextView(
-                250,
+                sufy::constant::HEIGHT / 4,
                 text
         )));
 
@@ -44,13 +44,13 @@ namespace sufy { namespace game { namespace states {
             sf::Text temp = sufy::utils::Text(
                 names[i],
                 *sufy::utils::Codex::AcquireFont("Gelio.ttf"),
-                120.0f,
+                sufy::constant::HEIGHT / 10,
                 1.5f,
                 sf::Color(),
                 sf::Color()
             );
             this->menu.add(std::shared_ptr<sufy::window::gui::Button>(new sufy::window::gui::Button(
-                550 + (i * 130),
+                (sufy::constant::HEIGHT / 2) + (i * (sufy::constant::HEIGHT / 9)),
                 temp,
                 colours,
                 callbacks[i]
