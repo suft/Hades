@@ -16,6 +16,7 @@ namespace sufy { namespace game { namespace states {
 
     void PlayState::render() {
         this->adapter.clear(this->background);
+        this->camera.render(this->adapter);
         this->adapter.display();
     }
 
