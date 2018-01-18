@@ -12,7 +12,7 @@ namespace sufy { namespace game {
         this->window.setFramerateLimit(60);
 
         using namespace states;
-        this->machine.run(std::unique_ptr<SplashState>(new SplashState(this->machine, this->window, true)));
+        this->machine.run(std::unique_ptr<SplashState>(new SplashState(this->machine, this->window, sufy::state::StateMode::REPLACE_TOP)));
 
         auto tp = std::chrono::steady_clock::now();
         while (this->machine.isRunning()) {

@@ -2,7 +2,7 @@
 
 namespace sufy { namespace game { namespace states {
 
-    IdleState::IdleState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace): State<sf::RenderWindow>(machine, adapter, replace) {
+    IdleState::IdleState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode): State<sf::RenderWindow>(machine, adapter, mode) {
         this->background = sf::Color::Black;
         std::string names[] = {"Play", "Options", "Help", "Quit"};
         sufy::graphics::ActionColours colours = {

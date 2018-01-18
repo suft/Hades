@@ -2,7 +2,7 @@
 
 namespace sufy { namespace game { namespace states {
 
-    SplashState::SplashState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, bool replace): State<sf::RenderWindow>(machine, adapter, replace) {
+    SplashState::SplashState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode): State<sf::RenderWindow>(machine, adapter, mode) {
         this->logo = sf::Sprite(*sufy::utils::Codex::AcquireTexture("Logo.png"));
         auto local = this->logo.getLocalBounds();
         auto scale = 0.45f;
@@ -30,7 +30,7 @@ namespace sufy { namespace game { namespace states {
         sf::Event event;
         while (this->adapter.pollEvent(event)) this->handleEvents(event);
         if (this->fader.getDirection() == sufy::penner::Fader::Direction::OUT and this->fader.isComplete()) {
-            this->after = std::unique_ptr<sufy::game::states::MenuState>(new sufy::game::states::MenuState(this->machine, this->adapter, true));
+            this->after = std::unique_ptr<sufy::game::states::MenuState>(new sufy::game::states::MenuState(this->machine, this->adapter, sufy::state::StateMode::REPLACE_TOP));
         }
         this->fader.update(dt);
     }
