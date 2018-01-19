@@ -35,6 +35,7 @@ file(GLOB UTILS_CPP src/utils/*.cpp)
 #################################################
 # OBJECTS NAMESPACE
 file(GLOB OBJECTS_HPP src/objects/*.hpp)
+file(GLOB OBJECTS_CPP src/objects/*.cpp)
 #################################################
 
 #################################################
@@ -73,7 +74,7 @@ set(SOURCE_FILES src/Main.cpp
         ${CONST_HPP}
         ${STATE_HPP}
         ${GRAPHICS_HPP}
-        ${OBJECTS_HPP}
+        ${OBJECTS_HPP} ${OBJECTS_CPP}
         ${UTILS_HPP} ${UTILS_CPP}
         ${GAME_HPP} ${GAME_CPP}
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
