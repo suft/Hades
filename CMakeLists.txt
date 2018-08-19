@@ -3,10 +3,10 @@ project(Sufy)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SFML_LIB_PATH /usr/local/lib)
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/sfml_dir")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+#set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++14")
 set(CXX_LINKER_FLAGS "-lsfml-graphics -lsfml-window -lsfml-system")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CXX_LINKER_FLAGS}")
@@ -88,14 +88,10 @@ set(SOURCE_FILES src/Main.cpp
 ####
 
 #################################################
-## FONTS
-set(FONTS Polya.otf Sakred.ttf Gelio.ttf)
-#################################################
-
-foreach(RESOURCE ${FONTS})
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
-            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
-endforeach(RESOURCE)
+#foreach(RESOURCE ${IMAGES})
+#    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
+#            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+#endforeach(RESOURCE)
 
 #################################################
 ## IMAGES
@@ -109,7 +105,7 @@ endforeach(RESOURCE)
 
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})
-find_package(SFML 2 REQUIRED COMPONENTS network audio graphics window)
+find_package(SFML 2.5 REQUIRED COMPONENTS network audio graphics window)
 include_directories(${SFML_INCLUDE_DIR} include)
 link_directories(${SFML_LIB_PATH})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

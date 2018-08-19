@@ -13,6 +13,9 @@ namespace sufy { namespace objects {
     public:
         Handler() = default;
 
+        void add(std::shared_ptr<Object> o);
+        void remove(std::shared_ptr<Object> o);
+
         void update(float dt);
         void render(sf::RenderTarget& rt);
     };
