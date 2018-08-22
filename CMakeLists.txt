@@ -80,18 +80,24 @@ set(SOURCE_FILES src/Main.cpp
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
         ${WINDOW_HPP} ${WINDOW_CPP}
         ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP}
-        ${PENNER_HPP} ${PENNER_CPP})
+        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp)
 
+add_subdirectory(tmxparser)
 
 ####
 #### RESOURCE FILES
 ####
 
 #################################################
-#foreach(RESOURCE ${IMAGES})
-#    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/${RESOURCE}
-#            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
-#endforeach(RESOURCE)
+## IMAGES
+set(TILESET 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
+#################################################
+
+foreach(RESOURCE ${TILESET})
+    set(TILE "tile0${RESOURCE}.png")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/tiles/${TILE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${TILE} COPYONLY)
+endforeach(RESOURCE)
 
 #################################################
 ## IMAGES
@@ -106,7 +112,10 @@ endforeach(RESOURCE)
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})
 find_package(SFML 2.5 REQUIRED COMPONENTS network audio graphics window)
-include_directories(${SFML_INCLUDE_DIR} include)
+include_directories(${SFML_INCLUDE_DIR} include ${CMAKE_CURRENT_SOURCE_DIR}/tmxparser/include)
 link_directories(${SFML_LIB_PATH})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+if (CMAKE_VERSION VERSION_LESS 3.1)
+    target_link_libraries(${PROJECT_NAME} tmxparser)
+endif()
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
