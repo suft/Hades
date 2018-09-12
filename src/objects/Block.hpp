@@ -1,14 +1,26 @@
-//
-// Created by Sufien Tout on 2018-08-18.
-//
+#pragma once
 
-#ifndef SUFY_BLOCK_HPP
-#define SUFY_BLOCK_HPP
+#include <SFML/Graphics.hpp>
+#include "Object.hpp"
 
+namespace sufy { namespace objects {
 
-class Block {
+    class Block: public Object {
+    protected:
+        float size;
+        int id;
+        sf::Texture tex;
+        sf::Sprite sprite;
+    public:
+        Block() = default;
+        Block(float x, float y, float size, int id, sf::Texture tex);
 
-};
+        bool isCollidable();
 
+        void update(float dt) override;
+        void render(sf::RenderTarget &rt) override;
 
-#endif //SUFY_BLOCK_HPP
+        sf::FloatRect getBounds() override;
+    };
+
+}}

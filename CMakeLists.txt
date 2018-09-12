@@ -8,7 +8,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_STANDARD 14)
 #set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++14")
-set(CXX_LINKER_FLAGS "-lsfml-graphics -lsfml-window -lsfml-system")
+set(CXX_LINKER_FLAGS "-lsfml-graphics -lsfml-window -lsfml-system -lz")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CXX_LINKER_FLAGS}")
 
 ####
@@ -80,9 +80,7 @@ set(SOURCE_FILES src/Main.cpp
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
         ${WINDOW_HPP} ${WINDOW_CPP}
         ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP}
-        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp)
-
-add_subdirectory(tmxparser)
+        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp src/objects/Player.cpp src/objects/Player.hpp)
 
 ####
 #### RESOURCE FILES
@@ -90,7 +88,7 @@ add_subdirectory(tmxparser)
 
 #################################################
 ## IMAGES
-set(TILESET 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
+set(TILESET 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34)
 #################################################
 
 foreach(RESOURCE ${TILESET})
@@ -109,13 +107,30 @@ foreach(RESOURCE ${IMAGES})
             ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
 endforeach(RESOURCE)
 
+#################################################
+## IMAGES
+set(TILESET cellar.json)
+#################################################
+
+foreach(RESOURCE ${TILESET})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/tileset/${RESOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach(RESOURCE)
+
+#################################################
+## IMAGES
+set(MAPS level_one.json)
+#################################################
+
+foreach(RESOURCE ${MAPS})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/map/${RESOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach(RESOURCE)
+
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})
 find_package(SFML 2.5 REQUIRED COMPONENTS network audio graphics window)
-include_directories(${SFML_INCLUDE_DIR} include ${CMAKE_CURRENT_SOURCE_DIR}/tmxparser/include)
+include_directories(${SFML_INCLUDE_DIR} include)
 link_directories(${SFML_LIB_PATH})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-if (CMAKE_VERSION VERSION_LESS 3.1)
-    target_link_libraries(${PROJECT_NAME} tmxparser)
-endif()
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

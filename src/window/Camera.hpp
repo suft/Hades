@@ -13,6 +13,7 @@ namespace sufy { namespace window {
     public:
         Camera();
 
+        void reset(sf::RenderTarget& rt);
         void render(sf::RenderTarget& rt);
         void move(sf::Vector2f position, sf::Vector2f speed);
     };

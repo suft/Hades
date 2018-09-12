@@ -4,7 +4,6 @@ namespace sufy { namespace game { namespace states {
 
     SplashState::SplashState(sufy::state::StateMachine<sf::RenderWindow> &machine, sf::RenderWindow &adapter, sufy::state::StateMode mode): State<sf::RenderWindow>(machine, adapter, mode) {
         this->logo = sf::Sprite(*sufy::utils::Codex::AcquireTexture("Logo.png"));
-        auto local = this->logo.getLocalBounds();
         auto scale = 0.45f;
         this->logo.setScale(scale, scale);
         auto global = this->logo.getGlobalBounds();

@@ -4,6 +4,7 @@ namespace sufy { namespace utils {
 
     std::unordered_map<std::string, std::shared_ptr<sf::Font>> Codex::fonts;
     std::unordered_map<std::string, std::shared_ptr<sf::Texture>> Codex::textures;
+    std::unordered_map<std::string, std::shared_ptr<nlohmann::json>> Codex::jsons;
 
     std::shared_ptr<sf::Font> Codex::AcquireFont(const std::string& name) {
         const auto i = fonts.find(name);
@@ -26,4 +27,18 @@ namespace sufy { namespace utils {
             return texture;
         }
     }
+
+    std::shared_ptr<nlohmann::json> Codex::AcquireJSON(const std::string& name) {
+        const auto i = jsons.find(name);
+        if (i != jsons.end()) return i->second;
+        else {
+            nlohmann::json j;
+            std::ifstream iff(name);
+            iff >> j;
+            auto json = std::make_shared<nlohmann::json>(j);
+            jsons.insert({name, json});
+            return json;
+        }
+    }
+
 }}

@@ -8,6 +8,10 @@ namespace sufy { namespace window {
             rt.setView(this->view);
         }
 
+        void Camera::reset(sf::RenderTarget &rt) {
+            rt.setView(rt.getDefaultView());
+        }
+
         void Camera::move(sf::Vector2f position, sf::Vector2f speed) {
             sf::Vector2f center = this->view.getCenter();
             this->view.move(
