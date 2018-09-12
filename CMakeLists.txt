@@ -80,7 +80,7 @@ set(SOURCE_FILES src/Main.cpp
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
         ${WINDOW_HPP} ${WINDOW_CPP}
         ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP}
-        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp src/objects/Player.cpp src/objects/Player.hpp)
+        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp src/objects/Player.cpp src/objects/Player.hpp src/graphics/Animation.cpp src/graphics/Animation.hpp)
 
 ####
 #### RESOURCE FILES
@@ -108,7 +108,7 @@ foreach(RESOURCE ${IMAGES})
 endforeach(RESOURCE)
 
 #################################################
-## IMAGES
+## TILESET
 set(TILESET cellar.json)
 #################################################
 
@@ -118,7 +118,7 @@ foreach(RESOURCE ${TILESET})
 endforeach(RESOURCE)
 
 #################################################
-## IMAGES
+## MAPS
 set(MAPS level_one.json)
 #################################################
 
@@ -126,6 +126,23 @@ foreach(RESOURCE ${MAPS})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/map/${RESOURCE}
             ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
 endforeach(RESOURCE)
+
+#################################################
+## SKELETON
+set(SKELETON_RESOURCES
+        IdleRight.png IdleLeft.png
+        WalkRight.png WalkLeft.png
+        ReactRight.png ReactLeft.png
+        DeadRight.png DeadLeft.png
+        HitRight.png HitLeft.png
+        AttackRight.png AttackLeft.png)
+#################################################
+
+foreach(RESOURCE ${SKELETON_RESOURCES})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/skeleton/${RESOURCE}
+            ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach(RESOURCE)
+
 
 add_definitions(-DBUILD_${CMAKE_BUILD_TYPE})
 message(STATUS "BUILDTYPE:" ${BUILD_TYPE})

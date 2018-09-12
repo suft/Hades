@@ -4,11 +4,48 @@ namespace sufy { namespace objects {
 
     Player::Player(float x, float y, Handler *handler): Object({x, y}){
         this->handler = handler;
+        this->loadAnimations();
+    }
+
+    void Player::loadAnimations() {
+        this->sprite.setTextureRect({0, 0, 32, 64});
+        this->sprite.scale(2.0f, 3.0f);
+        this->currentAnimation = AnimationType::IdleRight;
+        this->animations = {
+                sufy::graphics::Animation("IdleRight.png", 0, 0, 24, 32, 11, 0.15f, false, true, [](){}),
+                sufy::graphics::Animation("IdleLeft.png", 0, 0, 24, 32, 11, 0.15f, true, true, [](){}),
+                sufy::graphics::Animation("WalkRight.png", 0, 0, 22, 33, 13, 0.05f, false, true, [](){}),
+                sufy::graphics::Animation("WalkLeft.png", 0, 0, 22, 33, 13, 0.05f, true, true, [](){}),
+                sufy::graphics::Animation("AttackRight.png", 0, 0, 43, 37, 18, 0.05f, false, false, std::bind(&Player::attackComplete, this)),
+                sufy::graphics::Animation("AttackLeft.png", 0, 0, 43, 37, 18, 0.05f, true, false, std::bind(&Player::attackComplete, this)),
+                sufy::graphics::Animation("HitRight.png", 0, 0, 30, 32, 8, 0.1f, false, true, [](){}),
+                sufy::graphics::Animation("HitLeft.png", 0, 0, 30, 32, 8, 0.1f, true, true, [](){}),
+                sufy::graphics::Animation("ReactRight.png", 0, 0, 22, 32, 4, 0.1f, false, true, [](){}),
+                sufy::graphics::Animation("ReactLeft.png", 0, 0, 22, 32, 4, 0.1f, true, true, [](){}),
+                sufy::graphics::Animation("DeadRight.png", 0, 0, 33, 32, 15, 0.1f, false, true, [](){}),
+                sufy::graphics::Animation("DeadLeft.png", 0, 0, 33, 32, 15, 0.1f, true, true, [](){}),
+        };
     }
 
     void Player::update(float dt) {
         this->input();
         this->position += this->velocity;
+
+        if (this->velocity.x == 0.0f) {
+            if (this->direction < 0) this->currentAnimation = AnimationType::IdleLeft;
+            else if (this->direction > 0) this->currentAnimation = AnimationType::IdleRight;
+        } else if (this->velocity.x < 0.0f) {
+            this->direction = -1;
+            this->currentAnimation = AnimationType::WalkLeft;
+        } else if (this->velocity.x > 0.0f) {
+            this->direction = 1;
+            this->currentAnimation = AnimationType::WalkRight;
+        }
+
+        if (this->attacking) {
+            if (this->direction < 0) this->currentAnimation = AnimationType::AttackLeft;
+            else if (this->direction > 0) this->currentAnimation = AnimationType::AttackRight;
+        }
 
         if (this->falling || this->jumping) {
             this->velocity.y += this->gravity;
@@ -16,9 +53,20 @@ namespace sufy { namespace objects {
         }
 
         this->collision();
+        this->animations[static_cast<int>(this->currentAnimation)].update(dt);
+        this->animations[static_cast<int>(this->currentAnimation)].applyToSprite(sprite);
+        if (this->currentAnimation == AnimationType::AttackRight) {
+            this->sprite.setPosition(this->position.x, this->position.y - 20);
+        } else if (this->currentAnimation == AnimationType::AttackLeft) {
+            this->sprite.setPosition(this->position.x - 30, this->position.y - 20);
+        } else {
+            this->sprite.setPosition(this->position);
+        }
     }
 
     void Player::render(sf::RenderTarget &rt) {
+        rt.draw(this->sprite);
+
         if (DEBUGGING) {
             this->renderBody(rt);
             this->renderTop(rt);
@@ -86,7 +134,7 @@ namespace sufy { namespace objects {
     void Player::collision() {
         for (auto object : this->handler->objects) {
             auto block = std::dynamic_pointer_cast<sufy::objects::Block>(object);
-            if (block and block->isCollidable()) {
+            if (block and block->isCollidable() and block->isVisible()) {
                 if (this->getBoundsTop().intersects(block->getBounds())) {
                     this->position.y = block->getPos().y + block->getBounds().height;
                     this->velocity.y = 0.0f;
@@ -103,13 +151,22 @@ namespace sufy { namespace objects {
 
                 if (this->getBoundsRight().intersects(block->getBounds())) {
                     this->position.x = block->getPos().x - this->width;
+                    if (this->attacking and block->isBreakable()) block->destroy();
                 }
 
                 if (this->getBoundsLeft().intersects(block->getBounds())) {
                     this->position.x = block->getPos().x + block->getBounds().width;
+                    if (this->attacking and block->isBreakable()) block->destroy();
                 }
             }
         }
+    }
+
+    bool Player::attack() {
+        return (
+                sf::Keyboard::isKeyPressed(sf::Keyboard::Space) or
+                (sf::Joystick::isConnected(0) and sf::Joystick::isButtonPressed(0, sf::Joystick::Y))
+        );
     }
 
     bool Player::up() {
@@ -146,7 +203,7 @@ namespace sufy { namespace objects {
             this->velocity.y = -10.0f;
         }
 
-//        if (this->attack()) this->attacking = true;
+        if (this->attack()) this->attacking = true;
     }
 
     sf::FloatRect Player::getBounds() {
@@ -192,6 +249,11 @@ namespace sufy { namespace objects {
                 5.0f,
                 this->height - 10.0f
         };
+    }
+
+    void Player::attackComplete() {
+        this->attacking = false;
+        this->animations[static_cast<int>(this->currentAnimation)].reset();
     }
 
 }}

@@ -9,6 +9,7 @@ namespace sufy { namespace objects {
     protected:
         float size;
         int id;
+        bool visible = true;
         sf::Texture tex;
         sf::Sprite sprite;
     public:
@@ -16,6 +17,10 @@ namespace sufy { namespace objects {
         Block(float x, float y, float size, int id, sf::Texture tex);
 
         bool isCollidable();
+        bool isBreakable();
+        bool isVisible();
+
+        void destroy();
 
         void update(float dt) override;
         void render(sf::RenderTarget &rt) override;

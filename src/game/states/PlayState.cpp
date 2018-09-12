@@ -8,15 +8,19 @@ namespace sufy { namespace game { namespace states {
         this->player = std::make_shared<sufy::objects::Player>(9 * 96, 6 * 96, this->world.getHandler());
     }
 
-    void PlayState::pause() {}
-    void PlayState::resume() {}
+    void PlayState::pause() {
+        printf("Paused\n");
+    }
+    void PlayState::resume() {
+        printf("Resumed\n");
+    }
 
     void PlayState::update(float dt) {
         sf::Event event;
         while (this->adapter.pollEvent(event)) this->handleEvents(event);
         this->world.update(dt);
         this->player->update(dt);
-        this->camera.move(this->player->getPos(), {0.2f, 0.2f});
+        this->camera.move(this->player->getPos(), {0.025f, 0.025f});
     }
 
     void PlayState::render() {
