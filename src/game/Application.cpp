@@ -10,6 +10,7 @@ namespace sufy { namespace game {
         );
         this->window.setVerticalSyncEnabled(true);
         this->window.setFramerateLimit(60);
+        this->window.setMouseCursorVisible(false);
 
         using namespace states;
         this->machine.run(std::unique_ptr<SplashState>(new SplashState(this->machine, this->window, sufy::state::StateMode::REPLACE_TOP)));

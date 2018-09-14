@@ -2,10 +2,17 @@
 
 namespace sufy { namespace window {
 
-        Camera::Camera(): view(sufy::constant::CENTER, sufy::constant::DIMENSIONS) {}
+        Camera::Camera(): view(sufy::constant::CENTER, sufy::constant::DIMENSIONS) {
+            this->view.zoom(0.60);
+        }
 
         void Camera::render(sf::RenderTarget &rt) {
             rt.setView(this->view);
+        }
+
+        void Camera::reset(sf::RenderTarget &rt) {
+            sf::View v = rt.getDefaultView();
+            rt.setView(v);
         }
 
         void Camera::move(sf::Vector2f position, sf::Vector2f speed) {

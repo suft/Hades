@@ -8,7 +8,7 @@
 namespace sufy { namespace objects {
 
     class Handler {
-    private:
+    public:
         std::vector<std::shared_ptr<Object>> objects;
     public:
         Handler() = default;
