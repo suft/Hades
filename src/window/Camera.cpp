@@ -3,7 +3,7 @@
 namespace sufy { namespace window {
 
         Camera::Camera(): view(sufy::constant::CENTER, sufy::constant::DIMENSIONS) {
-            this->view.zoom(0.75);
+            this->view.zoom(0.60);
         }
 
         void Camera::render(sf::RenderTarget &rt) {
