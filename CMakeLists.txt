@@ -80,7 +80,7 @@ set(SOURCE_FILES src/Main.cpp
         ${GAME_STATES_HPP} ${GAME_STATES_CPP}
         ${WINDOW_HPP} ${WINDOW_CPP}
         ${WINDOW_GUI_HPP} ${WINDOW_GUI_CPP}
-        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp src/objects/Player.cpp src/objects/Player.hpp src/graphics/Animation.cpp src/graphics/Animation.hpp)
+        ${PENNER_HPP} ${PENNER_CPP} src/objects/Block.cpp src/objects/Block.hpp src/objects/Player.cpp src/objects/Player.hpp src/graphics/Animation.cpp src/graphics/Animation.hpp src/objects/Collectable.hpp src/objects/Destroyable.hpp src/objects/Collidable.hpp src/objects/Background.hpp)
 
 ####
 #### RESOURCE FILES
